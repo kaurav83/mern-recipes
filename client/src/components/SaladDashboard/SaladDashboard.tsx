@@ -5,9 +5,11 @@ import { getSaladsList } from '../../api';
 import { ISalad } from '../../types';
 
 import { SaladCard } from '../SaladCard/SaladCard';
+import { Loader } from '../../shared/Loader/Loader';
 
 export const SaladDashboard = () => {
   const [saladList, setSaladList] = useState<ISalad[]>();
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     getAllSalads();
@@ -18,12 +20,17 @@ export const SaladDashboard = () => {
       const { data } = await getSaladsList();
 
       setSaladList(data);
+      setLoading(false);
     } catch (err) {
       if (request.isAxiosError(err)) {
         console.log(err.message);
       }
     }
   }, []);
+
+  if (isLoading) {
+    return <Loader />
+  }
 
   return (
     <>
