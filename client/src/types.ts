@@ -5,5 +5,6 @@ export interface ISalad {
   name: string;
   sauce: string;
   weight: number;
+  ingredients?: string[];
   _id: string;
 }
