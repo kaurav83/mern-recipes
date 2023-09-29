@@ -26,7 +26,7 @@ cd client
 npm install
 ```
 
-To start the server, execute:
+To start the client, execute:
 
 ```sh
 npm start
