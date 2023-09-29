@@ -7,9 +7,12 @@ import ruLocale from 'date-fns/locale/ru';
 import { getSaladById } from '../../api';
 import { ISalad } from '../../types';
 
+import { Loader } from '../../shared/Loader/Loader';
+
 export const SaladDetail = () => {
   const { id } = useParams();
   const [salad, setSalad] = useState<ISalad>();
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     getAllSalads();
@@ -21,6 +24,7 @@ export const SaladDetail = () => {
         const { data } = await getSaladById(id);
 
         setSalad(data);
+        setLoading(false);
       }
 
     } catch (err) {
@@ -37,6 +41,10 @@ export const SaladDetail = () => {
       return format(date, "d MMMM yyyy", { locale: ruLocale });
     }
   }, [salad]);
+
+  if (isLoading) {
+    return <Loader />
+  }
 
   return (
     <>
